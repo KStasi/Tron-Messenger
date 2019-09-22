@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.noUi-horizontal {
+  max-width: 50%;
+  margin: auto;
+  margin-top: 5%;
+}
+
+#container, div {
+  align-content: center;
+  text-align: center;
+}
+
+button {
+  margin: 0 auto;
+  padding: 5%;
+  width: 10%;
+}
+
+.form-control {
+  width: 20%;
+  margin: 1% auto;
+}
+
+li {
+  max-width: 50%;
+  margin: 1% auto;
+}
+.sent .messageContent {
+  padding: 1% 1%;
+  background-color: #374785;
+  border-radius: 15px;
+}
+
+.received .messageContent {
+  padding: 1% 1%;
+  background-color: #A8D0E6;
+  border-radius: 15px;
+}
+
+.sent .messageContent div {
+  text-align: right;
+}
+
+
+.received .messageContent div {
+  text-align: left;
+}
+
+.username {
+  font-style: italic;
+  font-size: 2vh;
+}
+
+.text {
+  color: #F76C6C;
+}
+
+ul {
+  list-style-type: none;
+}

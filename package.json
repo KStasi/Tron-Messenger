@@ -1,0 +1,42 @@
+{
+  "name": "messenger",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@chilkat/ck-node8-linux64": "^9.50.79",
+    "aes-js": "^3.1.2",
+    "big-integer": "^1.6.44",
+    "crypto-js": "^3.1.9-1",
+    "dotenv": "^8.1.0",
+    "dotenv-expand": "^5.1.0",
+    "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.11",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1",
+    "sweetalert2": "^8.16.2",
+    "tronweb": "^2.7.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "move-cli": "^1.2.1",
+    "rimraf": "^2.6.3",
+    "solc": "^0.4.25"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
