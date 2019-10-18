@@ -22,7 +22,7 @@ module.exports = {
             network_id: "*"
         },
         shasta: {
-            privateKey: process.env.PK,
+            privateKey: process.env.PRIVATE_KEY_SHASTA,
             consume_user_resource_percent: 30,
             fee_limit: 100000000,
 
