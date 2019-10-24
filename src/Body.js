@@ -15,14 +15,10 @@ class Body extends React.Component {
             messengerContract: null,
             messages: []
         };
-        console.log(process.env);
-        console.log(process.env.CONTRACT_ADDRESS);
-        console.log(process.env.PK);
-        console.log(process.env.SECRET_KEY);
 
         this.send = this.send.bind(this);
         this.encrypt = this.encrypt.bind(this);
-        this.updatePublicKey = this.updatePublicKey.bind(this);
+        this.updateConnection = this.updateConnection.bind(this);
         this.renderMessage = this.renderMessage.bind(this);
         this.decrypt = this.decrypt.bind(this);
         this.getSharedKey = this.getSharedKey.bind(this);
@@ -70,9 +66,13 @@ class Body extends React.Component {
         this.setState({messages: messages});
     }
 
-    async updatePublicKey() {
-        var publicKey = this.getPublicKey().toString();
-        return await this.state.messengerContract.updatePublicKey(publicKey).send(
+    async updateConnection() {
+        let receiver = document.getElementById("receiverField");
+        let base = bigInt(document.getElementById("baseField").value);
+        let modulo = bigInt(document.getElementById("moduloField").value);
+        var secretKey = bigInt(process.env.SECRET_KEY);
+        var publicKey = base.modPow(secretKey, modulo).toString();
+        return await this.state.messengerContract.updateConnection(receiver, base, modulo, publicKey).send(
             {
                 shouldPollResponse: true
             }
@@ -80,10 +80,9 @@ class Body extends React.Component {
     }
 
     async getSharedKey(receiver) {
-        let modulo = bigInt(MODULO);
         var secretKey = bigInt(process.env.SECRET_KEY);
-        let receiverPublicKey = bigInt(await this.state.messengerContract.publicKeys(receiver).call());
-        return receiverPublicKey.modPow(secretKey, modulo);
+        let base, modulo, publicKey = bigInt(await this.state.messengerContract.getConnection(receiver).call());
+        return publicKey.modPow(secretKey, modulo);
     }
 
     async send() {
@@ -104,7 +103,6 @@ class Body extends React.Component {
     async encrypt() {
         let receiver = document.getElementById("receiverField").value;
         let messageField = document.getElementById("messageField");
-        console.log(process.env.CONTRACT_ADDRESS);
         let sharedKey = this.getSharedKey(receiver);
         messageField.value = CryptoJS.AES.encrypt(messageField.value, sharedKey.toString()).toString();
     }
@@ -136,9 +134,11 @@ class Body extends React.Component {
         const messages = this.state.messages;
         return (
             <div>
+                <Form.Control id="baseField" type="number" placeholder="base" />
+                <Form.Control id="moduloField" type="number" placeholder="modulo" />
                 <Form.Control id="receiverField" type="text" placeholder="receiver" />
                 <Form.Control id="messageField" type="text" placeholder="message" />
-                <Button onClick={this.updatePublicKey} variant="danger">Update PK</Button>
+                <Button onClick={this.updateConnection} variant="danger">Update PK</Button>
                 <Button onClick={this.encrypt} variant="danger">Encrypt</Button>
                 <Button onClick={this.send} variant="danger">Send</Button>
                 <ul className="messagesList">

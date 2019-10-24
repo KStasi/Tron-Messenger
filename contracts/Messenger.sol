@@ -15,10 +15,14 @@ contract Messenger {
         emit Message(msg.sender, to, message);
     }
  
-    function updatePublicKey(address mate, bytes base, bytes modulo, bytes publicKey) public {
+    function updateConnection(address mate, bytes base, bytes modulo, bytes publicKey) public {
         publicKeys[msg.sender][mate] = [base, modulo, publicKey];
     }
     
+    function getConnection(address mate) public view returns(bytes, bytes, bytes) {
+        return (publicKeys[mate][msg.sender][0], publicKeys[mate][msg.sender][1], publicKeys[mate][msg.sender][2]) ;
+    }
+
     function openChat(address[] mates, bytes base, bytes modulo) public returns (bytes32) {
         bytes32 hash = calculateIdentifier(abi.encodePacked(msg.sender), mates);
         chat[hash] = MessageTool(base, modulo);
